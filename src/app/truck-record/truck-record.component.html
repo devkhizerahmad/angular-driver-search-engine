@@ -1,0 +1,245 @@
+<div class="choice">
+  <button type="button" [class.active-button]="activeLevel1 === level1Status.tank " 
+   (click)="handleClick( level1Status.tank)"
+   class="truckRecordActive text-sm font-semibold ">TANK / FLUSSING
+  </button>
+  <mat-icon class="truckIcon" *ngIf="activeLevel1 === level1Status.tank "
+    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
+  </mat-icon>
+
+  <button type="button" [class.active-button]="activeLevel1 === level1Status.stuckGut " 
+    (click)="handleClick(level1Status.stuckGut)"
+    class="stuckGutActive text-sm font-semibold ">LKW / STUCKGUT
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1 === level1Status.stuckGut"
+    style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+
+</div>
+
+<div class="LKW" *ngIf="activeLevel1 === level1Status.stuckGut">
+  <button type="button" [class.active-button]="activeLevel1B2 === level1B2Status.semiTrain "
+    (click)="handleClick(level1B2Status.semiTrain)"
+    class="semiTruck text-sm font-semibold ">SATTELZUG
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1B2 === level1B2Status.semiTrain"
+    style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+
+  <button type="button" class="articulatedTrain text-sm font-semibold "
+    [class.active-button]="activeLevel1B2 === level1B2Status.articulatedTrain"
+    (click)="handleClick(level1B2Status.articulatedTrain)">
+    GLIEDERZUG
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1B2 === level1B2Status.articulatedTrain"
+    style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+
+  <button type="button" [class.active-button]="activeLevel1B2 === level1B2Status.transport"
+    (click)="handleClick(level1B2Status.transport)" 
+    class="transPorter text-sm font-semibold">
+    TRANSPORTER
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1B2 === level1B2Status.transport"
+    style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+</div>
+
+<div class="tank" *ngIf="activeLevel1 === level1Status.tank">
+  <button type="button" [class.active-button]="activeLevel1B1 === level1B1Status.train "
+    (click)="handleClick(level1B1Status.train)" 
+    class="tankTrainActive text-sm font-semibold ">TANKZUNG
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1B1 === level1B1Status.train"
+    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+
+  <button type="button" [class.active-button]="activeLevel1B1 === level1B1Status.container"
+    (click)="handleClick(level1B1Status.container)" 
+    class="tankContainerActive text-sm font-semibold ">TANKCONTAINER
+  </button>
+  <mat-icon class="driverIcon" *ngIf="activeLevel1B1 === level1B1Status.container"
+    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+  </mat-icon>
+</div>
+
+<div class="artculatedTrailer" *ngIf="activeLevel1B2 === level1B2Status.articulatedTrain">
+  <button type="button" class="withTrailer text-sm font-semibold "
+    [class.active-button]="activeLevelB2b2 === level1B2b2Status.withTrailer "
+    (click)="handleClick(level1B2b2Status.withTrailer)">MIT
+    ANHANGER
+  </button>
+  <mat-icon *ngIf="activeLevelB2b2 === level1B2b2Status.withTrailer"
+    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
+  </mat-icon>
+
+  <button type="button" class="withoutTrailer text-sm font-semibold "
+    [class.active-button]="activeLevelB2b2 === level1B2b2Status.withoutTrailer"
+    (click)="handleClick(level1B2b2Status.withoutTrailer)">OHNE ANHANGER
+  </button>
+  <mat-icon *ngIf="activeLevelB2b2 === level1B2b2Status.withoutTrailer"
+    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
+  </mat-icon>
+</div>
+
+<div class="container" *ngIf="activeLevel1B1 === level1B1Status.train || 
+    activeLevel1B1  === level1B1Status.container || 
+    activeLevel1B2  === level1B2Status.semiTrain || 
+    activeLevelB2b2 === level1B2b2Status.withoutTrailer ||
+    activeLevelB2b2 === level1B2b2Status.withTrailer ||
+    activeLevel1B2  === level1B2Status.transport ">
+  <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+
+    <div class="allcombine" *ngIf=" activeLevel1B2 !== level1B2Status.transport"
+     [ngClass]="{
+     'container-active':      activeLevel1B1  === level1B1Status.container ,
+     'semitruck-active':      activeLevel1B2  === level1B2Status.semiTrain ,
+     'withTrailer-active':    activeLevelB2b2 === level1B2b2Status.withTrailer,
+     'withoutTrailer-active': activeLevelB2b2 === level1B2b2Status.withoutTrailer}">
+
+      <div class="tractor" *ngIf="activeLevelB2b2 === level1B2b2Status.withTrailer || 
+       activeLevelB2b2 === level1B2b2Status.withoutTrailer">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Bitte Zugmaschine wahlen</mat-label>
+          <mat-select formControlName="select_tractor" required>
+            <mat-option *ngFor="let item of tractor" [value]="item.id">{{item.viewValue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="train" formGroupName="lkw">
+        <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
+          <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
+          <!-- <input matInput   [formControl]="input_lkw" required /> -->
+          <input matInput formControlName="value" required />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
+          <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
+          <!-- <mat-select  [formControl]="lkw_select" required > -->
+          <mat-select formControlName="value" required>
+            <input matInput [formControl]="lkw_select_input" placeholder="Search Train" />
+            <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
+              {{ item.viewValue }}
+            </mat-option>
+            <mat-option *ngIf="filteredTrains.length === 0" (click)="addNewTrain()">
+              Add a new Train
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="is_new" >
+          ({{ Form.get('lkw.is_new')?.value ? 'new zugmaschine' : 'existing zugmachine' }})
+        </mat-slide-toggle>
+        <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
+      </div>
+
+      <div class="trailer" formGroupName="auflieger"
+        *ngIf=" activeLevel1B2 === level1B2Status.semiTrain || activeLevel1B1 === level1B1Status.train || activeLevel1B1 === level1B1Status.container ">
+        <mat-form-field *ngIf="Form.get('auflieger.is_new')?.value" style="width: 100%">
+          <mat-label>AUFLIEGER NR. | KFZ-NR NAME</mat-label>
+          <input matInput formControlName="value" required />
+        </mat-form-field>
+        <mat-form-field *ngIf="!Form.get('auflieger.is_new')?.value" style="width: 100%">
+          <mat-label>AUFLIEGER NR. | KFZ-NR SEL</mat-label>
+          <mat-select formControlName="value" required>
+            <input matInput [formControl]="auflieger_select_input" />
+            <mat-divider></mat-divider>
+            <mat-option *ngFor="let item of filteredTrailers" [value]="item.id">{{ item.viewValue }}</mat-option>
+            <mat-option *ngIf="filteredTrailers.length === 0" (click)="addNewTrailer()">
+              Add a new Train
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="is_new" >
+          {{ Form.get('auflieger.is_new')?.value ? 'Neuer Auflieger' : 'Neuer Auflieger' }}
+        </mat-slide-toggle>
+        <p>Payload Auflieger <b>{{ Form.get('auflieger')?.value | json }}</b></p>
+      </div>
+
+      <div class="semiTrain" *ngIf="activeLevel1B2 === level1B2Status.semiTrain || 
+                 activeLevelB2b2 === level1B2b2Status.withTrailer ">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Bitte Auflieger wahlen</mat-label>
+          <mat-select formControlName="select_semiTrain" required>
+            <mat-option *ngFor="let item of semiTrain" [value]="item.id">{{item.viewValue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="tractorNumber" formGroupName="tractorNumberCtrl"
+        *ngIf="activeLevelB2b2 === level1B2b2Status.withTrailer ">
+
+        <mat-form-field *ngIf="Form.get('tractorNumberCtrl.is_new')?.value" style="width: 100%">
+          <mat-label>MULDEN NUMBER INP</mat-label>
+          <input matInput formControlName="value" required />
+        </mat-form-field>
+        <mat-form-field *ngIf="!Form.get('tractorNumberCtrl.is_new')?.value" style="width: 100%">
+          <mat-label>MULDEN NUMBER SEL</mat-label>
+          <mat-select formControlName="value" required>
+            <input matInput [formControl]="tractorNumberCtrl_select_input" />
+            <mat-option *ngFor="let item of filteredTractorNumber" [value]="item.id">{{ item.viewValue }}</mat-option>
+            <mat-option *ngIf="filteredTractorNumber.length === 0" (click)="addNewTractorNumber()">
+              Add a new tractorNumber
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="Form.get('value')?.hasError('required')">
+          This field is required.
+          </mat-error>          
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName="is_new" >
+          {{ Form.get('tractorNumberCtrl.is_new')?.value ? 'New Tractor' : 'Existing Tractor' }}
+        </mat-slide-toggle>
+        <p>Payload Mulden: <b>{{ Form.get('tractorNumberCtrl')?.value | json }}</b></p>
+
+      </div>
+
+      <div class="containerInput" *ngIf="activeLevel1B1 === level1B1Status.container">
+        <mat-form-field style="width: 131%;">
+          <mat-label>Tankcontainer</mat-label>
+          <input matInput formControlName="containerNumber" placeholder="Tankcontainer" maxlength="13">
+          <mat-hint align="start">Format: AAAU 999 999 9</mat-hint>
+          <mat-error *ngIf="Form.get('tankNumber')?.hasError('pattern')">
+            Invalid format (use AAAU 999 999 9)
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="transporterDiv" *ngIf="activeLevel1B2 === level1B2Status.transport">
+
+      <div class="transporterType" style="width: 33.5%;">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="type_ctrl" required>
+            <mat-option *ngFor="let item of type" [value]="item.id">{{item.viewValue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="transporterCtrl" formGroupName="transporterGrp" style="width: 33.5%;">
+
+        <mat-form-field *ngIf="Form.get('transporterGrp.is_new')?.value" style="width: 100%">
+          <mat-label>Transporter Name</mat-label>
+          <input matInput formControlName="value" required />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!Form.get('transporterGrp.is_new')?.value" style="width: 100%">
+          <mat-label>Select Transporter</mat-label>
+          <mat-select formControlName="value" required>
+            <input matInput [formControl]="transporterGrp_select_input" />
+            <mat-option *ngFor="let item of filterTransports" [value]="item.id">{{ item.viewValue }}</mat-option>
+            <mat-option *ngIf="filterTransports.length === 0" (click)="addNewTransporter()">
+              Add a new Tansporter
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName="is_new" >
+          {{ Form.get('transporterGrp.is_new')?.value ? 'New transporter' : 'Existing transporter' }}
+        </mat-slide-toggle>
+        <p>Payload lkw: <b>{{ Form.get('transporterGrp')?.value | json }}</b></p>
+      </div>
+    </div>
+    <button mat-raised-button style="margin: 10px 0 0 165px;" color="primary" [disabled]="Form.invalid" >Submit</button>
+  </form>
+</div>

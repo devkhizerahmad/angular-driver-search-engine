@@ -1,0 +1,93 @@
+<button mat-raised-button class="category-button" color="accent" (click)="openDialog()">
+        <mat-icon>category</mat-icon>
+        Category
+</button>
+ <br>
+
+  <div *ngFor="let cat of submittedCategories; let i = index" class="category-item">      
+          
+   <div class="list-item" >
+    <span class="category-text"  [style.backgroundColor]="cat.color" >  {{ cat | myCustomPipe: selectLang  }} </span>
+  </div> 
+   
+
+  <div class="actions-container">
+
+          <span class="material-symbols-outlined" (click)="openUpdateDialog(cat)" >edit</span>
+          
+          <!-- <span class="material-symbols-outlined" (click)="deleteItem(cat)" >auto_delete</span> -->
+          <span class="material-symbols-outlined" (click)="deleteItem(cat)" >delete</span>
+
+          <!-- <button mat-raised-button class="delete-button" color="accent"   (click)="deleteItem(cat)" >
+          <mat-icon>category</mat-icon> </button> -->
+      
+  </div>
+     <br>
+
+
+  </div>
+
+  <div class="container">
+        <div class="header">
+                <div class="first sm:grid-cols-12 ">
+                 <p class="header-first-text-field  sm:col-span-7 "> {{ someText | uppercase }} </p>
+                 <div class="number-box  sm:col-span-3 "><b>10111</b></div>
+                 <span class="material-symbols-outlined  sm:col-span-2 " style="font-size: 18px; margin-right: 20px;">menu</span>
+
+                </div>
+                <div class="circle sm:grid-cols-12">
+                       <div class="dot sm:col-span-5"  >RR</div> 
+                       <div class="flag-field col-span-7 ">
+                        <div class="robker " style="display: flex; flex-direction: row;">
+                         <div class="header-second-text-field"><b>ROBKER,</b></div>
+                         <div class="header-number-field"><b>34</b></div>
+                         <span class="fi fi-au"></span>
+                         </div>
+                       </div>
+                </div>
+                <div class="timer">
+                        <div class="vibrant">
+                         <span class="material-symbols-outlined"  style="font-size: 14px;" >mobile_vibrate</span>     
+                         <div  class="timer-number-field" style="font-size: 14px;">15</div>     
+                        </div> 
+                        <div class="ADR"><b>ADR</b></div> 
+                        <div class="clock">
+                         <span class="material-symbols-outlined" style="font-size: 20px; margin-right: 7px;" >timer_5</span>
+                         <div class="dialer" style="font-size: 13px"><b>20 Dias 16:55 h</b></div>
+                        </div>                              
+                </div>
+        </div>
+        <div class="main">
+                <div class="main-1">
+                        <div class="main-dot-first">1</div>
+                        <div class="main-number-field" style="margin: 0 27px 0 10px"><b>FO 9610044308</b></div>
+                        <div class="main-dot-second">1</div>
+                        <div class="main-dot-third">2</div>
+                        <span class="material-symbols-outlined" style="font-size: 20px; margin-left: 60px;">content_copy</span>
+                </div>    
+      
+                <!-- <div class="main-2">
+                        <p class="main-2-text-field-1">Flex-varient in the store</p>
+                        <div class="main-2-dot-first">2</div>
+                        <span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+                        <p class="main-2-text-field-2"> {{ someText | uppercase }} </p>
+                        <div class="main-2-dot-second">2</div> -->
+                        
+                <!-- <div class="main-vertical-line">--------------------</div>    -->
+        </div>
+        <div class="footer">
+                <div class="footer-text-box"><b>CISTERNA</b></div>
+                <div class="ride">
+                        <span class="material-symbols-outlined" style="font-size: 20px;" >local_shipping</span>
+                        <div style="font-size: 15px;" ><b>TEST LWK 11 | TEST AUF 11</b></div>
+                </div>
+        </div>
+  </div>
+
+
+  
+
+
+
+
+

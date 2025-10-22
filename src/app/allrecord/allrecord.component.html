@@ -1,0 +1,19 @@
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup" label="Driver Record" >
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Driver Record</ng-template>
+          <app-driver-record></app-driver-record>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>      
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup"  label="Truck Record">
+    <form [formGroup]="secondFormGroup">
+      <app-truck-record></app-truck-record>
+
+      <div style="display: flex; gap: 12px;"  >
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

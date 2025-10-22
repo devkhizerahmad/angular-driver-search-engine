@@ -1,0 +1,43 @@
+<div class="custom-field" >
+  <h2 mat-dialog-title class="title">Add Categories</h2>
+  <form [formGroup]="mainForm">
+    <div formArrayName="categories">
+      <div *ngFor="let cat of categories.controls; let i = index" [formGroupName]="i" class="category-row">
+
+        <ng-container [formGroupName]="'category'">
+          <mat-form-field class="custom-input full-width">
+            <input matInput formControlName="name" required [placeholder]="cat.get('category.language')?.value" >
+            
+          </mat-form-field> 
+        </ng-container>
+        
+        <span class="color-box" [style.backgroundColor]="cat.get('color')?.value"></span>
+      </div>
+    </div>
+    
+    <div mat-dialog-actions>
+      <button class="add-button" mat-raised-button color="primary" (click)="addCategory()">
+        Add Category
+      </button>
+    </div>
+    
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label>Select Color</mat-label>
+        <mat-select formControlName="color" >
+          <mat-option *ngFor="let colors of colorList" [value]="colors.value">
+            {{ colors.color }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  
+  <div mat-dialog-actions class="actions-right">
+    <button class="submit-button" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+    <button class="close-button" mat-raised-button color="primary" (click)="onClose()">Close</button>
+  </div>
+
+</div>
+
+

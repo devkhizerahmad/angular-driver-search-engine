@@ -1,0 +1,23 @@
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toolbar-spacer {
+
+  flex: 1 1 auto;
+}
+
+mat-form-field {
+ 
+  max-width: 250px;
+  width: 100%;
+  margin-top: 25px;
+  
+  
+  //border: 5px solid black;
+}
+.toolBar{
+  padding: 20px;
+}

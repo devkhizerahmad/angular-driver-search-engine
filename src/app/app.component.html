@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+
+
+    <div class="links">
+        <div style=" display: flex; align-items: center;">Menu
+            <span [matMenuTriggerFor]="menu" class="material-symbols-outlined"
+                style="font-size: 30px;  cursor: pointer;">
+                menu</span>
+        </div>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLinkActive="active" routerLink="/Language&Category">Category</button>
+            <button mat-menu-item>User Registration</button>
+        </mat-menu>
+        <div style=" display: flex; align-items: center;">TankRecord
+            <span class="material-symbols-outlined" style="font-size: 30px;" routerLinkActive="active"
+                routerLink="/TruckContainerRecord">dashboard</span>
+        </div>
+
+        <div style=" display: flex; align-items: center;">category
+            <span class="material-symbols-outlined" routerLinkActive="active" routerLink="/Categories"
+                style="font-size: 30px;">category</span>
+        </div>
+        <div style=" display: flex; align-items: center;">Driver register
+            <span class="material-symbols-outlined" routerLinkActive="active" routerLink="/DriverRegistration"
+                style="font-size: 30px;">car_tag</span>
+        </div>
+        <div style=" display: flex; align-items: center;">Driver db
+            <span class="material-symbols-outlined" routerLinkActive="active" routerLink="/DriverRecord"
+                style="font-size: 30px;">database</span>
+        </div>
+        <div style=" display: flex; align-items: center;">Home
+            <span class="material-symbols-outlined" style="font-size: 30px; " routerLinkActive="active"
+                routerLink="/AllRecord">home</span>
+        </div>
+        <div style=" display: flex; align-items: center;">Design
+            <span class="material-symbols-outlined" style="font-size: 30px; " routerLinkActive="active"
+                routerLink="/LayoutDesign">design_services</span>
+        </div>
+
+    </div>
+</mat-toolbar>
+<!-- <button type="button" class="btn btn-outline-primary" routerLink="fruit/create">+Add</button> -->
+<!-- <app-header></app-header>
+ <app-category></app-category> -->
+<router-outlet></router-outlet>
+
+
+<!-- <div class="container">
+    <a routerLinkActive="active" 
+       routerLink="/UserRegistration">User Registration</a>        
+    <router-outlet></router-outlet>
+</div> -->

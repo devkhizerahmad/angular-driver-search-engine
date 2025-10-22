@@ -1,0 +1,36 @@
+{
+  "drivers": [
+    {
+      "id": "0",
+      "first_name": "Khizer",
+      "second_name": "Ahmed",
+      "nationality": "Pakistan-PAK",
+      "date_of_birth": "1999-12-12T19:00:00.000Z",
+      "identity_check": true
+    },
+    {
+      "id": "1",
+      "first_name": "kamran",
+      "second_name": "gulam",
+      "nationality": "Nepal-NPL",
+      "date_of_birth": "2000-12-12T19:00:00.000Z",
+      "identity_check": false
+    },
+    {
+      "id": "2",
+      "first_name": "hassan",
+      "second_name": "ali",
+      "nationality": "India-IND",
+      "date_of_birth": "2000-12-02T19:00:00.000Z",
+      "identity_check": true
+    },
+    {
+      "id": 3,
+      "first_name": "umer ",
+      "second_name": "akmal",
+      "nationality": "Turkey-TUR",
+      "date_of_birth": "2000-12-04T19:00:00.000Z",
+      "identity_check": false
+    }
+  ]
+}

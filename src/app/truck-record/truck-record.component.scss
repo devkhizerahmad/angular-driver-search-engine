@@ -1,0 +1,263 @@
+.tankTrainActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 30%;
+  height: 50px;
+}
+.tankContainerActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 30%;
+  height: 50px;
+}
+.tank {
+  margin: 25px 0px 25px 252px;
+  display: flex;
+  align-content: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+.tank .active-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.toggle {
+  margin: 0px 0px 35px 135px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 170px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+}
+
+.combine {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 71.5%;
+  margin-left: 160px;
+}
+
+.names {
+  width: 45%;
+  display: flex;
+  margin-left: -95px;
+}
+.selectors {
+  display: flex;
+  width: 45%;
+  margin-left: -19px;
+}
+
+.combine.container-active {
+  .names,
+  .selectors,
+  .containerInput {
+    width: 29%;
+  }
+  width: 83%;
+  margin-left: 125px;
+}
+.stuckGutActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+.truckRecordActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+.choice {
+  margin: 30px 0 0px 252px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.choice .active-button {
+  background-color: #3f51b5;
+  color: white;
+}
+.LKW {
+  gap: 5px;
+  display: flex;
+  flex-direction: row;
+  
+  align-items: flex-start;
+  width: 80%;
+  margin: 20px 0 0 252px;
+}
+
+.LKW .semiTruck,
+.LKW .articulatedTrain,
+.LKW .transPorter {
+  background-color: #c7bfbf;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+
+.LKW .semiTruck.active-button,
+.LKW .articulatedTrain.active-button,
+.LKW .transPorter.active-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.combine.semitruck-active {
+  width: 70%;
+  margin-left: 133px;
+  margin-top: 10px;
+
+  .names {
+    width: 30%;
+    margin-left: -176px;
+    margin-right: -19px;
+  }
+  .semiTrain {
+    width: 30%;
+  }
+  .selectors {
+    width: 151%;
+    margin-left: -17px;
+  }
+}
+
+.withTrailer {
+  background-color: #c7bfbf;
+  color: white;
+  width: 30%;
+  height: 50px;
+}
+.withoutTrailer {
+  background-color: #c7bfbf;
+  color: white;
+  width: 30%;
+  height: 50px;
+}
+.artculatedTrailer {
+  margin: 25px 0px 25px 252px;
+  display: flex;
+  align-content: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+.artculatedTrailer .active-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.allcombine {
+  display: flex;
+  width: 97%;
+  margin-left: 25px;
+  justify-content: flex-start;
+}
+.train {
+  display: flex;
+  width: 35%;
+  margin-left: 144px;
+  flex-direction: column;
+}
+.trailer {
+  display: flex;
+  width: 35%;
+  margin-left: 25px;
+  flex-direction: column;
+}
+.allcombine.container-active {
+  margin-left: 171px;
+  gap: 18px;
+
+  .train {
+    width: 23%;
+    margin-left: 0;
+  }
+  .trailer {
+    width: 23%;
+    margin-left: 0;
+  }
+  .containerinput {
+    display: flow-root;
+    width: 23%;
+    margin-left: 0;
+  }
+}
+.allcombine.semitruck-active {
+  margin: 12px 0 0 170px;
+  gap: 24px;
+
+  .train {
+    width: 22.5%;
+    margin-left: 0;
+  }
+  .trailer {
+    width: 22.5%;
+    margin-left: 0;
+  }
+  .semiTrain {
+    display: flow-root;
+    width: 22.5%;
+    margin-left: 0;
+  }
+}
+
+.transporterDiv {
+  display: flex;
+  width: 100%;
+  margin: 12px 0 0 166px;
+  gap: 11px;
+}
+.active {
+      background-color: lightblue;
+      font-weight: bold;
+}
+.tractor{
+  width: 33%;
+}
+.allcombine.withTrailer-active {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 170px;
+  gap: 20px;
+  .tractor{
+    
+    width: 70%;
+  }
+  .train{
+    margin-left: -175px;
+    width: 70%;
+  }
+  .semiTrain{
+    width: 70%;
+  }
+  .tractorNumber{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-left: -175px;
+  }
+  
+}
+
+.allcombine.allcombine.withoutTrailer-active{
+display: flex;
+padding-left: 150px;
+gap: 10px;
+width: 100%;
+.tractor{
+width: 39%}
+.train{
+width: 39%;
+margin-left: 0;}
+}

@@ -1,0 +1,87 @@
+
+<div  class="container">
+  <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+    <div class="user-pic">
+      <span class="material-symbols-outlined" style="font-size: 150px;">account_circle</span>
+    </div>
+
+    <div class="form-field-content">
+
+      <div *ngIf="isNewRecord" class="names" style="width: 100%; display: flex; flex-wrap: wrap; gap: 10px;">
+        <mat-form-field class="example-full-width" style="width: 49%;">
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" formControlName="first_name" style="font-weight: 600;">
+        </mat-form-field>
+
+        <mat-form-field style="width: 49%;" class="example-full-width">
+          <mat-label>Second Name</mat-label>
+          <input matInput type="text" formControlName="second_name" style="font-weight: 600;">
+        </mat-form-field>
+      </div>
+
+      <div style="width: 100%;">
+
+        <mat-form-field *ngIf="!isNewRecord" class="prev-record" style="width: 100%;">
+          <mat-label>Search Record</mat-label>
+          <input matInput type="text" *ngIf="appendId" class="search-record" style="width: 100%; "
+            placeholder="Enter your name" formControlName="search_driver_record" >
+          <mat-select formControlName="driver_id" (selectionChange)="appendDriverId($event.value)"
+            (click)="activeNameRecords()">
+            <mat-option *ngFor="let driver of filteredDrivers" [value]="driver">
+              <ng-container *ngIf="!driver.isNew; else newDriver">
+                {{ driver.first_name }} {{ driver.second_name }} ({{ driver.date_of_birth }})
+              </ng-container>
+              <ng-template #newDriver>
+                <span style=" font-weight: 600;">Add as a new driver</span>
+              </ng-template>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+      <div style="display: flex; flex-wrap: wrap; width: 100%; gap: 10px;">
+        <div style="width: 49%;">
+          <mat-form-field class="full-width" style="width: 100%;">
+            <mat-label>Land</mat-label>
+            <mat-select formControlName="nationality" (selectionChange)="onChange($event.value)" #selectedValue
+              style="font-weight: 600;">
+              <mat-option *ngFor="let nationality of countryList" [value]="nationality.name">{{ nationality.name
+                }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="width: 49%;">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="date_of_birth"
+              style="font-weight: 600;">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <button mat-icon-button matSuffix type="button" (click)="onClearDate()">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="toggle" style="margin-left: 114px; position: absolute;">
+      <mat-slide-toggle style="margin-left: 100px;" formControlName="identity_check">
+        Identity Check
+      </mat-slide-toggle>
+      <mat-slide-toggle style="margin-left: 100px;" [checked]="isNewRecord" (change)="toggleNewRecord($event.checked)">
+        {{ isNewRecord ? 'New Driver' : 'Existing Driver'}}
+      </mat-slide-toggle>
+    </div>
+    <button mat-raised-button class="submit-button" color="primary" [disabled]="Form.invalid"
+      style="margin: 50px 0 0 215px;">Submit
+    </button>
+  </form>
+
+  <!-- <button mat-raised-button style="margin: -35px 0 0 450px" routerLinkActive="active" routerLink="/home" 
+  (click)="showRecord()" >Driver
+    <span class="material-symbols-outlined"style="font-size: 30px;">database</span>
+  </button> -->
+
+
+</div>

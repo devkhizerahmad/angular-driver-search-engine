@@ -1,0 +1,66 @@
+.container {
+  //border: 2px solid black;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  margin: 45px 0px 0px 40px;
+  width: 77%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-pic {
+ background-color: rgb(173, 168, 168);
+    /* position: fixed; */
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* align-content: center; */
+    justify-content: space-around;
+    /* align-items: center; */
+    width: 15%;
+}
+.form-field-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* padding-left: 100px; */
+  margin: -150px 0 0 215px;
+}
+.prev-record {
+  width: 100%;
+}
+// .submit-button{
+//   margin-left: 20px;
+// }
+
+.toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.driverRecordActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+.truckRecordActive {
+  background-color: #c7bfbf;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+.choice {
+margin: 30px 0 0px 252px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;   
+    gap: 10px;
+    cursor: pointer;
+}
+.choice .active-button {
+  background-color: #3f51b5;
+  color: white;
+}
