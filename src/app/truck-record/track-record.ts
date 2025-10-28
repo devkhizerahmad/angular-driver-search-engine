@@ -1,20 +1,20 @@
 
-export  enum level1 {
-    tank = 0 ,
-    stuckGut = 1,
+export  enum TransportCategory {
+    tank = 'Tank',
+    stuckGut = 'Stuckgut',
 }
 
-export enum level1B1 {
-    train = 2,
-    container = 3,
+export enum TankType {
+    train = 'TankZung',
+    container = 'TankContianer',
 }
 
-export enum level1B2 {
-    semiTrain = 4,
-    articulatedTrain = 5,
-    transport = 6,
+export enum StuckgutType {
+    semiTrain = "Sattelzug",
+    articulatedTrain = "Gliederzug",
+    transport = 'Transporter',
 }
-export enum level1B2b2   {
-    withTrailer = 7,
-    withoutTrailer = 8
+export enum TrailerOption  {
+    withTrailer = 'MitAnhanger',
+    withoutTrailer = 'OhneAnhanger'
 }

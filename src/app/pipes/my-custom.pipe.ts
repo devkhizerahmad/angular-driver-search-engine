@@ -12,9 +12,8 @@ export class MyCustomPipe implements PipeTransform {
 
     //onChangeShowDefaultLang = catValue.categories[0].category.name;
 
-    const foundData = catValue.categories
-    .find(     
-      (item: any) => item.category.language === selectLang);
+    const foundData = catValue.categories.find((item: any) => 
+      item.category.language === selectLang);
       //console.log("new data according to selected option value: ", foundData);  
       return foundData?.category?.name || catValue.categories[0].category.name;       
 

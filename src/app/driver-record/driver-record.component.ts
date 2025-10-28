@@ -60,7 +60,7 @@ export class DriverRecordComponent implements OnInit {
     this.maxDate = new Date(2000, 11, 31);
 
     this.countryList = this.countryService.getDataOfAllCountriesList();
-    console.log("country list", this.countryList);
+    //console.log("country list", this.countryList);
     this.Form = this.fb.group({
       id: [null],
       nationality: ['', Validators.required],
@@ -109,7 +109,7 @@ export class DriverRecordComponent implements OnInit {
 
   toggleNewRecord(value: boolean) {
     this.isNewRecord = value;
-    console.log("New driver toggle :", this.isNewRecord);
+    //console.log("New driver toggle :", this.isNewRecord);
     this.applyFormControls();
   }
   onClearDate() {

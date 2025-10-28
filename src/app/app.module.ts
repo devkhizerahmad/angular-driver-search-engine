@@ -2,6 +2,8 @@ import { Component, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 
 
 import { MatMenuModule } from '@angular/material/menu'
@@ -42,12 +44,12 @@ import { LayoutdesignComponent } from './layoutdesign/layoutdesign.component';
 
 const routes: Routes = [
   { path: 'DriverRegistration', component: DriverRecordComponent },
-  { path: '', redirectTo: '/DriverRecord', pathMatch: 'full' },
+  { path: '', redirectTo: '/driverAllRecord', pathMatch: 'full' },
   { path: 'DriverRecord', component: HomeComponent }, 
   { path: 'Categories', component: LangCatComponent },
-  {path: 'TruckContainerRecord', component: TruckRecordComponent},
-  {path: 'AllRecord', component: AllrecordComponent},
-  {path: 'LayoutDesign', component: LayoutdesignComponent }
+  { path: 'TruckContainerRecord', component: TruckRecordComponent},
+  { path: 'driverAllRecord', component: AllrecordComponent},
+  { path: 'LayoutDesign', component: LayoutdesignComponent }
 ];
 
 
@@ -64,8 +66,7 @@ const routes: Routes = [
     TruckRecordComponent,
     AllrecordComponent,
     LayoutdesignComponent,
-
-
+    
 
 
   ],
@@ -90,6 +91,7 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatTableModule,
     MatStepperModule,
+    FormsModule
 
   ],
   providers: [DataSharedService],
