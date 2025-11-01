@@ -2,17 +2,16 @@
 <div class="choice" id="step1" >
 <!-- step1A -->
   <button type="button" [class.active-button]="activeTransportCategory === transportCategory.tank "
-    (click)="handleFormControls( transportCategory.tank,'')" class="truckRecordActive text-sm font-semibold ">TANK / FLUSSING
+    (click)="handleAllFormControls( transportCategory.tank)" class="truckRecordActive text-sm font-semibold ">TANK / FLUSSING
   </button>
-  <mat-icon class="truckIcon" *ngIf="activeTransportCategory === transportCategory.tank "
-    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
-  </mat-icon>
+  <mat-icon class="truckIcon" *ngIf="activeTransportCategory === transportCategory.tank"
+   style="margin: -10px 0px 0px -16px; color: #75FB4C;  ">check_circle</mat-icon>
 <!-- step1B -->
   <button type="button" [class.active-button]="activeTransportCategory === transportCategory.stuckGut "
-    (click)="handleFormControls(transportCategory.stuckGut,'')" class="stuckGutActive text-sm font-semibold ">LKW / STUCKGUT
+    (click)="handleAllFormControls( transportCategory.stuckGut)" class="stuckGutActive text-sm font-semibold ">LKW / STUCKGUT
   </button>
   <mat-icon class="driverIcon" *ngIf="activeTransportCategory === transportCategory.stuckGut"
-    style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+    style="margin: -10px 0px 0px -16px; color: #75FB4C;" color="primary">check_circle
   </mat-icon>
 
 </div>
@@ -20,18 +19,18 @@
   <!-- step2A -->
 
   <button type="button" [class.active-button]="activeTankType === tankType.train "
-    (click)="handleFormControls(tankType.train,'')" class="tankTrainActive text-sm font-semibold ">TANKZUNG
+    (click)="handleAllFormControls(transportCategory.tank ,tankType.train)" class="tankTrainActive text-sm font-semibold ">TANKZUNG
   </button>
   <mat-icon class="driverIcon" *ngIf="activeTankType === tankType.train"
-    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+    style="margin:-10px 0px 0px -16px; color: #75FB4C;" color="primary">check_circle
   </mat-icon>
 <!-- step2B -->
 
   <button type="button" [class.active-button]="activeTankType === tankType.container"
-    (click)="handleFormControls(tankType.container,'')" class="tankContainerActive text-sm font-semibold ">TANKCONTAINER
+    (click)="handleAllFormControls(transportCategory.tank ,tankType.container)" class="tankContainerActive text-sm font-semibold ">TANKCONTAINER
   </button>
   <mat-icon class="driverIcon" *ngIf="activeTankType === tankType.container"
-    style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
+    style="margin:-10px 0px 0px -16px; color: #75FB4C;" color="primary">check_circle
   </mat-icon>
 </div>
 
@@ -39,7 +38,7 @@
   <!-- step3A -->
 
   <button type="button" [class.active-button]="activeStuckgutType === stuckgutType.semiTrain "
-    (click)="handleFormControls(stuckgutType.semiTrain,'')" class="semiTruck text-sm font-semibold ">SATTELZUG
+    (click)="handleAllFormControls(transportCategory.stuckGut ,stuckgutType.semiTrain)" class="semiTruck text-sm font-semibold ">SATTELZUG
   </button>
   <mat-icon class="driverIcon" *ngIf="activeStuckgutType === stuckgutType.semiTrain"
     style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
@@ -48,31 +47,26 @@
 
   <button type="button" class="articulatedTrain text-sm font-semibold "
     [class.active-button]="activeStuckgutType === stuckgutType.articulatedTrain"
-    (click)="handleFormControls(stuckgutType.articulatedTrain,'')">
+    (click)="handleAllFormControls(transportCategory.stuckGut, stuckgutType.articulatedTrain)">
     GLIEDERZUG
   </button>
   <mat-icon class="driverIcon" *ngIf="activeStuckgutType === stuckgutType.articulatedTrain"
     style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
   </mat-icon>
 <!-- step3C -->
-
   <button type="button" [class.active-button]="activeStuckgutType === stuckgutType.transport"
-    (click)="handleFormControls(stuckgutType.transport,'')" class="transPorter text-sm font-semibold">
-    TRANSPORTER
+    (click)="handleAllFormControls(transportCategory.stuckGut, stuckgutType.transport)" class="transPorter text-sm font-semibold"> TRANSPORTER
   </button>
   <mat-icon class="driverIcon" *ngIf="activeStuckgutType === stuckgutType.transport"
     style="margin: -10px 0px 0px -16px; color: rgb(40, 228, 38);" color="primary">check_circle
   </mat-icon>
 </div>
 
-
 <div class="artculatedTrailer" id="3B" *ngIf="activeStuckgutType === stuckgutType.articulatedTrain">
   <!-- stepB1 -->
-
   <button type="button" class="withTrailer text-sm font-semibold "
     [class.active-button]="activeTrailerOption === trailerOption.withTrailer "
-    (click)="handleFormControls(trailerOption.withTrailer,'')">
-    MIT ANHANGER
+    (click)="handleAllFormControls(transportCategory.stuckGut, stuckgutType.articulatedTrain, trailerOption.withTrailer)  ">    MIT ANHANGER
   </button>
   <mat-icon *ngIf="activeTrailerOption === trailerOption.withTrailer"
     style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
@@ -80,7 +74,8 @@
 <!-- stepB2-->
   <button type="button" class="withoutTrailer text-sm font-semibold "
     [class.active-button]="activeTrailerOption === trailerOption.withoutTrailer"
-    (click)="handleFormControls(trailerOption.withoutTrailer,'')">OHNE ANHANGER
+     (click)="handleAllFormControls(transportCategory.stuckGut, stuckgutType.articulatedTrain, trailerOption.withoutTrailer)">
+    OHNE ANHANGER
   </button>
   <mat-icon *ngIf="activeTrailerOption === trailerOption.withoutTrailer"
     style="margin:-10px 0px 0px -16px; color: rgb(40, 228, 38);">check_circle
@@ -94,15 +89,15 @@
       <div class="train" formGroupName="lkw">
         <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" required style="font-weight: 600;" />
         </mat-form-field>
 
         <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="lkw_select_input"
-              (input)="onAllSearchFilter(this.tankType.train, $event)" />
-            <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
+              (input)="onAllSearchFilter(tankType.train, $event)" />
+            <mat-option *ngFor="let item of filteredTrains" [value]="item.id"  >
               {{ item.viewValue }}
             </mat-option>
             <mat-option *ngIf="filteredTrains.length === 0" (click)="addNewRecord(tankType.train)">
@@ -110,23 +105,22 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.train)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.train)">
           {{ Form.get('lkw.is_new')?.value ? 'Neuer zugmaschine' : 'Neuer zugmachine' }}
         </mat-slide-toggle>
         <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
       </div>
 
-      <div class="trailer" formGroupName="auflieger"
-        *ngIf=" activeStuckgutType === stuckgutType.semiTrain || activeTankType === tankType.train || activeTankType === tankType.container ">
+      <div class="trailer" formGroupName="auflieger">
         <mat-form-field *ngIf="Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" required style="font-weight: 600;" />
         </mat-form-field>
         <mat-form-field *ngIf="!Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="auflieger_select_input"
-              (input)="onAllSearchFilter(this.tankType.container, $event)" />
+              (input)="onAllSearchFilter(tankType.container, $event)" />
             <mat-divider></mat-divider>
             <mat-option *ngFor="let item of filteredTrailers" [value]="item.id">{{ item.viewValue }}</mat-option>
             <mat-option *ngIf="filteredTrailers.length === 0" (click)="addNewRecord(tankType.container)">
@@ -134,7 +128,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.container)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.container)">
           {{ Form.get('auflieger.is_new')?.value ? 'Neuer Auflieger' : 'Neuer Auflieger' }}
         </mat-slide-toggle>
         <p>Payload Auflieger <b>{{ Form.get('auflieger')?.value | json }}</b></p>
@@ -145,14 +139,14 @@
       <div class="train" formGroupName="lkw">
         <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" style="font-weight: 600;" required />
         </mat-form-field>
 
         <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="lkw_select_input"
-              (input)="onAllSearchFilter(this.tankType.train, $event)" />
+              (input)="onAllSearchFilter(tankType.train, $event)" />
             <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
               {{ item.viewValue }}
             </mat-option>
@@ -161,7 +155,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.train)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.train)">
           {{ Form.get('lkw.is_new')?.value ? 'Neuer zugmaschine' : 'Neuer zugmachine' }}
         </mat-slide-toggle>
         <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
@@ -170,13 +164,13 @@
       <div class="trailer" formGroupName="auflieger">
         <mat-form-field *ngIf="Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" style="font-weight: 600;" required />
         </mat-form-field>
         <mat-form-field *ngIf="!Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="auflieger_select_input"
-              (input)="onAllSearchFilter(this.tankType.container, $event)" />
+              (input)="onAllSearchFilter(tankType.container, $event)" />
             <mat-divider></mat-divider>
             <mat-option *ngFor="let item of filteredTrailers" [value]="item.id">{{ item.viewValue }}</mat-option>
             <mat-option *ngIf="filteredTrailers.length === 0" (click)="addNewRecord(tankType.container)">
@@ -184,7 +178,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.container)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.container)">
           {{ Form.get('auflieger.is_new')?.value ? 'Neuer Auflieger' : 'Neuer Auflieger' }}
         </mat-slide-toggle>
         <p>Payload Auflieger <b>{{ Form.get('auflieger')?.value | json }}</b></p>
@@ -192,7 +186,7 @@
       <div class="containerInput">
         <mat-form-field style="width: 100%;">
           <mat-label>Tankcontainer</mat-label>
-          <input matInput formControlName="containerNumber" placeholder="Tankcontainer" maxlength="13">
+          <input matInput formControlName="containerNumber" style="font-weight: 600;" placeholder="Tankcontainer" maxlength="13">
           <mat-hint align="start">Format: AAAU 999 999 9</mat-hint>
         </mat-form-field>
       </div>
@@ -202,14 +196,14 @@
       <div class="train" formGroupName="lkw">
         <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" maxlength="25" style="font-weight: 600;" required />
         </mat-form-field>
 
         <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="lkw_select_input"
-              (input)="onAllSearchFilter(this.tankType.train, $event)" />
+              (input)="onAllSearchFilter(tankType.train, $event)" />
             <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
               {{ item.viewValue }}
             </mat-option>
@@ -218,7 +212,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.train)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.train)">
           {{ Form.get('lkw.is_new')?.value ? 'Neuer zugmaschine' : 'Neuer zugmachine' }}
         </mat-slide-toggle>
         <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
@@ -227,13 +221,13 @@
       <div class="trailer" formGroupName="auflieger">
         <mat-form-field *ngIf="Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" style="font-weight: 600;" required />
         </mat-form-field>
         <mat-form-field *ngIf="!Form.get('auflieger.is_new')?.value" style="width: 100%">
           <mat-label>AUFLIEGER NR. | KFZ-NR SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="auflieger_select_input"
-              (input)="onAllSearchFilter(this.tankType.container, $event)" />
+              (input)="onAllSearchFilter(tankType.container, $event)" />
             <mat-divider></mat-divider>
             <mat-option *ngFor="let item of filteredTrailers" [value]="item.id">{{ item.viewValue }}</mat-option>
             <mat-option *ngIf="filteredTrailers.length === 0" (click)="addNewRecord(tankType.container)">
@@ -241,7 +235,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.container)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.container)">
           {{ Form.get('auflieger.is_new')?.value ? 'Neuer Auflieger' : 'Neuer Auflieger' }}
         </mat-slide-toggle>
         <p>Payload Auflieger <b>{{ Form.get('auflieger')?.value | json }}</b></p>
@@ -249,7 +243,7 @@
       <div class="semiTrain">
         <mat-form-field style="width: 100%;">
           <mat-label>Bitte Auflieger wahlen</mat-label>
-          <mat-select formControlName="select_semiTrain" required>
+          <mat-select formControlName="select_semiTrain" style="font-weight: 600;" required>
             <mat-option *ngFor="let item of semiTrain" [value]="item.id">{{item.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -263,7 +257,7 @@
         <div class="tractorr">
           <mat-form-field style="width: 100%;">
             <mat-label>Bitte Zugmaschine wahlen</mat-label>
-            <mat-select formControlName="select_tractor" required>
+            <mat-select formControlName="select_tractor" style="font-weight: 600;" required>
               <mat-option *ngFor="let item of tractor" [value]="item.id">{{item.viewValue}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -272,14 +266,14 @@
         <div class="trainn " formGroupName="lkw">
           <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
             <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
-            <input matInput formControlName="value" required />
+            <input matInput formControlName="value" style="font-weight: 600;" required />
           </mat-form-field>
 
           <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
             <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
-            <mat-select formControlName="value" required>
+            <mat-select formControlName="value" style="font-weight: 600;" required>
               <input matInput [formControl]="lkw_select_input"
-                (input)="onAllSearchFilter(this.tankType.train, $event)" />
+                (input)="onAllSearchFilter(tankType.train, $event)" />
               <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
                 {{ item.viewValue }}
               </mat-option>
@@ -288,7 +282,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.train)">
+          <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.train)">
             {{ Form.get('lkw.is_new')?.value ? 'Neuer zugmaschine' : 'Neuer zugmachine' }}
           </mat-slide-toggle>
           <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
@@ -308,11 +302,11 @@
 
           <mat-form-field *ngIf="Form.get('muldenNumber.is_new')?.value" style="width: 100%">
             <mat-label>MULDEN NUMBER INP</mat-label>
-            <input matInput formControlName="value" required />
+            <input matInput formControlName="value" style="font-weight: 600;" required />
           </mat-form-field>
           <mat-form-field *ngIf="!Form.get('muldenNumber.is_new')?.value" style="width: 100%">
             <mat-label>MULDEN NUMBER SEL</mat-label>
-            <mat-select formControlName="value" required>
+            <mat-select formControlName="value" style="font-weight: 600;" required>
 
               <input matInput [formControl]="muldenNumber_select_input"
                 (input)="onAllSearchFilter(trailerOption.withTrailer, $event)" />
@@ -326,7 +320,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.trailerOption.withTrailer)">
+          <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(trailerOption.withTrailer)">
             {{ Form.get('muldenNumber.is_new')?.value ? 'Neuer Tractor' : 'Neuer Tractor' }}
           </mat-slide-toggle>
           <p>Payload Mulden: <b>{{ Form.get('muldenNumber')?.value | json }}</b></p>
@@ -338,7 +332,7 @@
       <div class="tractor">
         <mat-form-field style="width: 100%;">
           <mat-label>Bitte Zugmaschine wahlen</mat-label>
-          <mat-select formControlName="select_tractor" required>
+          <mat-select formControlName="select_tractor" style="font-weight: 600;" required>
             <mat-option *ngFor="let item of tractor" [value]="item.id">{{item.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -347,14 +341,14 @@
       <div class="trainn" formGroupName="lkw">
         <mat-form-field *ngIf="Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN NAME</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" style="font-weight: 600;" required />
         </mat-form-field>
 
         <mat-form-field *ngIf="!Form.get('lkw.is_new')?.value" style="width: 100%">
           <mat-label>LKW ZUGMASCHINE WAHLEN SEL</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="lkw_select_input"
-              (input)="onAllSearchFilter(this.tankType.train, $event)" />
+              (input)="onAllSearchFilter(tankType.train, $event)" />
             <mat-option *ngFor="let item of filteredTrains" [value]="item.id">
               {{ item.viewValue }}
             </mat-option>
@@ -363,7 +357,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.tankType.train)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(tankType.train)">
           {{ Form.get('lkw.is_new')?.value ? 'Neuer zugmaschine' : 'Neuer zugmachine' }}
         </mat-slide-toggle>
         <p>Payload lkw: <b>{{ Form.get('lkw')?.value | json }}</b></p>
@@ -374,25 +368,25 @@
        activeStuckgutType === stuckgutType.transport">
       <div class="transporterType" >
         <mat-form-field style="width: 100%;">
-          <mat-label>Type</mat-label>
-          <mat-select formControlName="type_ctrl" required>
-            <mat-option *ngFor="let item of type" [value]="item.id">{{item.viewValue}}</mat-option>
+          <mat-label>Typ</mat-label>
+          <mat-select formControlName="type_ctrl" style="font-weight: 600;" required>
+            <mat-option *ngFor="let item of typ" [value]="item.id">{{item.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <p>Payload type: <b>{{ Form.get('type_ctrl')?.value | json }}</b></p>
+        <p>Payload typ: <b>{{ Form.get('type_ctrl')?.value | json }}</b></p>
       </div>
       <div class="transporterCtrl" formGroupName="transporterGrp">
 
         <mat-form-field *ngIf="Form.get('transporterGrp.is_new')?.value" style="width: 100%">
           <mat-label>Transporter Name</mat-label>
-          <input matInput formControlName="value" required />
+          <input matInput formControlName="value" style="font-weight: 600;" required />
         </mat-form-field>
 
         <mat-form-field *ngIf="!Form.get('transporterGrp.is_new')?.value" style="width: 100%">
           <mat-label>Select Transporter</mat-label>
-          <mat-select formControlName="value" required>
+          <mat-select formControlName="value" style="font-weight: 600;" required>
             <input matInput [formControl]="transporterGrp_select_input"
-              (input)="onAllSearchFilter(this.stuckgutType.transport, $event)" />
+              (input)="onAllSearchFilter(stuckgutType.transport, $event)" />
             <mat-option *ngFor="let item of filterTransports" [value]="item.id">{{ item.viewValue }}</mat-option>
             <mat-option *ngIf="filterTransports.length === 0" (click)="addNewRecord(stuckgutType.transport)">
               Add a new Tansporter
@@ -400,7 +394,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(this.stuckgutType.transport)">
+        <mat-slide-toggle formControlName="is_new" (change)="onAllToggle(stuckgutType.transport)">
           {{ Form.get('transporterGrp.is_new')?.value ? 'Neuer transporter' : 'Neuer transporter' }}
         </mat-slide-toggle>
         <p>Payload transporter: <b>{{ Form.get('transporterGrp')?.value | json }}</b></p>

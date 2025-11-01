@@ -1,0 +1,1 @@
+ (click)="handleAllFormControls(transportCategory.stuckGut, stuckgutType.articulatedTrain, trailerOption.withoutTrailer)"

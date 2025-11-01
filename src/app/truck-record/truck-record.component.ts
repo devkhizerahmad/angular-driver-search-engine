@@ -14,10 +14,10 @@ export class TruckRecordComponent implements OnInit {
   stuckgutType = StuckgutType;
   trailerOption = TrailerOption;
 
-  activeTransportCategory: TransportCategory | null = null;        
-  activeTankType: TankType | null = null;    
-  activeStuckgutType: StuckgutType | null = null;   
-  activeTrailerOption: TrailerOption | null = null; 
+  activeTransportCategory: TransportCategory | null = null;
+  activeTankType: TankType | null = null;
+  activeStuckgutType: StuckgutType | null = null;
+  activeTrailerOption: TrailerOption | null = null;
 
   lkw_select_input = new FormControl('');
   auflieger_select_input = new FormControl('');
@@ -49,9 +49,9 @@ export class TruckRecordComponent implements OnInit {
     { id: 101, viewValue: 'TRUCK NISSAN' },
     { id: 102, viewValue: 'JUKE VAN' },
   ];
-  type: any[] = [
-    { id: 110, viewValue: 'Sedan' },
-    { id: 111, viewValue: 'Mini copper' },
+  typ: any[] = [
+    { id: 110, viewValue: 'Thermo' },
+    { id: 111, viewValue: 'Nicht Thermo' },
   ];
   transPorters: any[] = [
     { id: 10, viewValue: 'DPH-BS-123' },
@@ -83,259 +83,186 @@ export class TruckRecordComponent implements OnInit {
     this.filteredmuldenNumber = this.muldenNumber;
 
     this.Form = this.fb.group({});
-    
+
     const userData = localStorage.getItem('allUserData');
 
     if (userData) {
-     const  parsed = JSON.parse(userData);
-      if ( parsed.transport_mittel === this.transportCategory.tank &&
-         parsed.tank_transport === this.tankType.train || parsed.tank_transport === this.tankType.container) 
-      {
-        console.log("tankZung Data: ", parsed.tank_transport);        
-        this.handleFormControls(parsed.tank_transport, parsed)
+      const parsed = JSON.parse(userData);
+
+      if (parsed.transport_mittel === this.transportCategory.tank) {
+        //tankZung=1 || tankContainer=2
+        this.handleAllFormControls(parsed.transport_mittel, parsed.tank_transport);
       }
-      else if ( parsed.transport_mittel === this.transportCategory.stuckGut &&
-         parsed.articulatedBranch === this.trailerOption.withTrailer || parsed.articulatedBranch === this.trailerOption.withoutTrailer) 
-      {
-         console.log("gliederzug Data:", parsed.articulatedBranch);
-         this.handleFormControls(parsed.articulatedBranch, parsed)
+      else if (parsed.transport_mittel === this.transportCategory.stuckGut) {
+        if (parsed.stuckgut_transport === this.stuckgutType.articulatedTrain) {
+          // Gliederzug=2 -> (i) mit anhanger=1  || (ii) ohne anhanger=2
+          this.handleAllFormControls(parsed.transport_mittel, parsed.stuckgut_transport, parsed.articulatedBranch);
+        }
+        else {
+          //sattelZug=1 || Transporter=3
+          this.handleAllFormControls(parsed.transport_mittel, parsed.stuckgut_transport);
+        }
       }
-      else if ( parsed.transport_mittel === this.transportCategory.stuckGut && 
-        parsed.stuckgut_transport === this.stuckgutType.semiTrain || parsed.stuckgut_transport === this.stuckgutType.transport ) 
-      {
-        console.log("satzug Data:", parsed.stuckgut_transport);
-        this.handleFormControls(parsed.stuckgut_transport, parsed)
-      }
-      else {
-        console.log('no data found');
-      }
-      console.log('Restored data:', parsed);
+      this.Form.patchValue(parsed);
+    } else {
+      console.log('not data found from localStorage');
+
     }
   }
-  handleTank(parent: string, child: string) {
-    if (parent === this.transportCategory.tank && child === this.tankType.train) { }
-    if (parent === this.transportCategory.tank && child === this.tankType.container) { }
-  }
-  handleFormControls(action: string, formData: any) {
-    //console.log("action : ", action);
-
-    if (action === this.transportCategory.tank) {
-      console.log("Button TANK was clicked");
+  handleAllFormControls(parent: TransportCategory | TankType | StuckgutType, child?: TankType | StuckgutType, subChild?: TrailerOption) {
+    if (parent === this.transportCategory.tank) {
+      console.log("Button parent TANK was clicked");
       this.activeStuckgutType = null
       this.activeTrailerOption = null;
       this.activeSubmitButton = false;
       this.activeTransportCategory = this.transportCategory.tank;
-    }
-    else if (action === this.tankType.train ) {
-      console.log('Button TANKZUNG was clicked');
-
-      this.activeTrailerOption = null;
-      this.activeStuckgutType = null
-      this.activeSubmitButton = true
-      this.activeTransportCategory = this.transportCategory.tank;
-      this.activeTankType = this.tankType.train
 
       if (this.Form) {
-        //console.log("Controls remove in TANKZUNG");
-        Object.keys(this.Form.controls).forEach(key => {
-          this.Form.removeControl(key);
+        Object.keys(this.Form.controls).forEach(key => this.Form.removeControl(key));
+      }
+
+      if (parent === this.transportCategory.tank && child === this.tankType.train) {
+        console.log('Button child TANKZUNG was clicked');
+        this.activeTankType = this.tankType.train
+
+        this.Form = this.fb.group({
+          transport_mittel: [this.activeTransportCategory],
+          tank_transport: [this.activeTankType],
+          lkw: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          }),
+          auflieger: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          })
         });
+        this.activeSubmitButton = true
+        console.log("ctrl in train ", this.Form.controls);
       }
+      if (parent === this.transportCategory.tank && child === this.tankType.container) {
+        console.log('button child TANKCONTAINER was clicked');
+        this.activeTankType = this.tankType.container;
 
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        tank_transport: [this.activeTankType],
-        lkw: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        }),
-        auflieger: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
-      } 
-      console.log("ctrl in train ", this.Form.controls);
-    }
-    else if (action === this.tankType.container) {
-      console.log('button TANKCONTAINER was clicked');
-      this.activeSubmitButton = true
-      this.activeTransportCategory = this.transportCategory.tank;
-      this.activeTankType = this.tankType.container;
-
-      if (this.Form) {
-        //console.log("Controls remove in TANKCONTAINER");
-        Object.keys(this.Form.controls).forEach(key => {
-          // this.Form.removeControl(key);
+        this.Form = this.fb.group({
+          transport_mittel: [this.activeTransportCategory],
+          tank_transport: [this.activeTankType],
+          containerNumber: ['', Validators.required],
+          lkw: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          }),
+          auflieger: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          })
         });
+        this.activeSubmitButton = true
+        console.log("ctrl in container number ", this.Form.controls);
       }
-
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        tank_transport: [this.activeTankType],
-        containerNumber: ['', Validators.required],
-        lkw: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        }),
-        auflieger: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
-      }
-      console.log("ctrl in container number ", this.Form.controls);
     }
-    else if (action === this.transportCategory.stuckGut) {
-
-      console.log("Button STUCKGUT was clicked");
+    else if (parent === this.transportCategory.stuckGut) {
+      console.log("Button parent STUCKGUT was clicked");
       this.activeTankType = null;
-      this.activeSubmitButton = false
-      this.activeTransportCategory = null;
-      this.activeTransportCategory = this.transportCategory.stuckGut;
-
-    }
-    else if (action === this.stuckgutType.semiTrain) {
-      console.log('button SATTELZUG was clicked');
-      this.activeSubmitButton = true
-      this.activeTrailerOption = null
-      this.activeTransportCategory = this.transportCategory.stuckGut;
-      this.activeStuckgutType = this.stuckgutType.semiTrain;
-
-      if (this.Form) {
-        // console.log("Controls remove in SATTELZUG");
-        Object.keys(this.Form.controls).forEach(key => {
-          this.Form.removeControl(key);
-        });
-      }
-
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        stuckgut_transport: [this.activeStuckgutType],
-        select_semiTrain: ['', Validators.required],
-        lkw: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        }),
-        auflieger: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
-      }
-      console.log("controls in SATTELZUG :", this.Form.controls);
-    }
-    else if (action === this.stuckgutType.articulatedTrain) {
-      console.log('button GLIEDERZUG was clicked');
-
+      this.activeTrailerOption = null;
       this.activeSubmitButton = false;
-      this.activeTrailerOption = null;
       this.activeTransportCategory = this.transportCategory.stuckGut;
-      this.activeStuckgutType = this.stuckgutType.articulatedTrain
-
-    }
-    else if (action === this.stuckgutType.transport) {
-      console.log('button TRANSPORTER was clicked');
-      this.activeSubmitButton = true
-      this.activeTrailerOption = null;
-      this.activeTransportCategory = this.transportCategory.stuckGut;
-      this.activeStuckgutType = this.stuckgutType.transport;
 
       if (this.Form) {
-        // console.log("Controls remove in transporter");
-        Object.keys(this.Form.controls).forEach(key => {
-          this.Form.removeControl(key);
+        Object.keys(this.Form.controls).forEach(key => this.Form.removeControl(key));
+      }
+      if (parent === this.transportCategory.stuckGut && child === this.stuckgutType.semiTrain) {
+        console.log('button child SATTELZUG was clicked');
+        this.activeSubmitButton = true
+        this.activeTrailerOption = null
+        this.activeStuckgutType = this.stuckgutType.semiTrain;
+
+        this.Form = this.fb.group({
+          transport_mittel: [this.activeTransportCategory],
+          stuckgut_transport: [this.activeStuckgutType],
+          select_semiTrain: ['', Validators.required],
+          lkw: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          }),
+          auflieger: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          })
         });
+        console.log("controls in SATTELZUG :", this.Form.controls);
       }
+      else if (parent === this.transportCategory.stuckGut && child === this.stuckgutType.transport) {
+        console.log('button child TRANSPORTER was clicked');
+        this.activeSubmitButton = true
+        this.activeTrailerOption = null;
+        this.activeStuckgutType = this.stuckgutType.transport;
 
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        stuckgut_transport: [this.activeStuckgutType],
-        type_ctrl: ['', Validators.required],
-        transporterGrp: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
-      }
-      console.log("ctrl in transporter", this.Form.controls);
-    }
-    else if (action === this.trailerOption.withTrailer) {
-      console.log('button MIT ANHANGER was clicked');
-      this.activeSubmitButton = true
-      this.activeTransportCategory = this.transportCategory.stuckGut;
-      this.activeStuckgutType = this.stuckgutType.articulatedTrain
-      this.activeTrailerOption = this.trailerOption.withTrailer;
-
-      if (this.Form) {
-        //console.log("Controls remove in MIT ANHANGER");
-        Object.keys(this.Form.controls).forEach(key => {
-          this.Form.removeControl(key);
+        this.Form = this.fb.group({
+          transport_mittel: [this.activeTransportCategory],
+          stuckgut_transport: [this.activeStuckgutType],
+          type_ctrl: ['', Validators.required],
+          transporterGrp: this.fb.group({
+            is_new: [false],
+            value: ['', Validators.required],
+          })
         });
+        console.log("ctrl in transporter", this.Form.controls);
       }
+      if (parent === this.transportCategory.stuckGut && child === this.stuckgutType.articulatedTrain) {
+        console.log('button child GLIEDERZUG was clicked');
+        this.activeSubmitButton = false;
+        this.activeTrailerOption = null;
+        this.activeStuckgutType = this.stuckgutType.articulatedTrain
 
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        stuckgut_transport: [this.activeStuckgutType],
-        articulatedBranch: [this.activeTrailerOption],
-        select_semiTrain: ['', Validators.required],
-        select_tractor: ['', Validators.required],
+        if (subChild === this.trailerOption.withoutTrailer) {
+          console.log('button OHNE ANHANGER was clicked');
+          this.activeTrailerOption = this.trailerOption.withoutTrailer
 
-        lkw: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        }),
-        muldenNumber: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
+          this.Form = this.fb.group({
+            transport_mittel: [this.activeTransportCategory],
+            stuckgut_transport: [this.activeStuckgutType],
+            articulatedBranch: [this.activeTrailerOption],
+            select_tractor: ['', Validators.required],
+            lkw: this.fb.group({
+              is_new: [false],
+              value: ['', Validators.required],
+            })
+          });
+          this.activeSubmitButton = true
+          console.log("ctrl in OHNE ANHANGER :", this.Form.controls);
+        }
+        else if (subChild === this.trailerOption.withTrailer) {
+          console.log('button MIT ANHANGER was clicked');
+          this.activeTrailerOption = this.trailerOption.withTrailer;
+
+          this.Form = this.fb.group({
+            transport_mittel: [this.activeTransportCategory],
+            stuckgut_transport: [this.activeStuckgutType],
+            articulatedBranch: [this.activeTrailerOption],
+            select_semiTrain: ['', Validators.required],
+            select_tractor: ['', Validators.required],
+
+            lkw: this.fb.group({
+              is_new: [false],
+              value: ['', Validators.required],
+            }),
+            muldenNumber: this.fb.group({
+              is_new: [false],
+              value: ['', Validators.required],
+            })
+          });
+          this.activeSubmitButton = true
+          console.log("ctrl in MIT ANHANGER :", this.Form.controls);
+        }
       }
-      console.log("ctrl in MIT ANHANGER :", this.Form.controls);
-    }
-    else if (action === this.trailerOption.withoutTrailer) {
-      console.log('button OHNE ANHANGER was clicked');
-
-      this.activeSubmitButton = true
-      this.activeTransportCategory = this.transportCategory.stuckGut;
-      this.activeStuckgutType = this.stuckgutType.articulatedTrain
-      this.activeTrailerOption = this.trailerOption.withoutTrailer
-
-      if (this.Form) {
-        //console.log("Controls remove in OHNE ANHANGER");
-        Object.keys(this.Form.controls).forEach(key => {
-          this.Form.removeControl(key);
-        });
-      }
-
-      this.Form = this.fb.group({
-        transport_mittel: [this.activeTransportCategory],
-        stuckgut_transport: [this.activeStuckgutType],
-        articulatedBranch: [this.activeTrailerOption],
-        select_tractor: ['', Validators.required],
-        lkw: this.fb.group({
-          is_new: [false],
-          value: ['', Validators.required],
-        })
-      });
-      if (formData) {
-        this.Form.setValue(formData);
-      }
-      console.log("ctrl in OHNE ANHANGER :", this.Form.controls);
     }
     else {
-      console.log('No button clicked ');
+      console.log('no data founded!');
     }
+    console.log("Category :", parent, "Child :", child, "SubChild :", subChild);
+    //console.log(` Category ${parent} Child ${child} subChild ${subChild}`);
+
   }
   onAllSearchFilter(type: any, event: Event) {
     const value = (event.target as HTMLInputElement).value.toLowerCase();
@@ -372,10 +299,10 @@ export class TruckRecordComponent implements OnInit {
       const isNew = this.Form.get('is_new')?.value;
 
       if (isNew) {
-        console.log(`lkw toggle ON `);
+        console.log(`lkw toggle ON ${isNew} `);
         controlGroup.get('value')?.reset();
       } else {
-        console.log(`lkw toggle OFF `);
+        console.log(`lkw toggle OFF ${isNew} `);
         controlGroup.get('value')?.reset();
       }
     } else if (type === this.tankType.container) {
@@ -384,10 +311,10 @@ export class TruckRecordComponent implements OnInit {
       const isNew = this.Form.get('is_new')?.value;
 
       if (isNew) {
-        console.log(` auf toggle ON `);
+        console.log(` auf toggle ON ${isNew} `);
         controlGroup.get('value')?.reset();
       } else {
-        console.log(`auf toggle OFF `);
+        console.log(`auf toggle OFF ${isNew}`);
         controlGroup.get('value')?.reset();
       }
     } else if (type === this.trailerOption.withTrailer) {
@@ -396,10 +323,10 @@ export class TruckRecordComponent implements OnInit {
       const isNew = this.Form.get('is_new')?.value;
 
       if (isNew) {
-        console.log(` muldenNumber toggle ON `);
+        console.log(` in mitAnhanger muldenNumber toggle ON ${isNew}`);
         controlGroup.get('value')?.reset();
       } else {
-        console.log(`muldenNumber toggle OFF `);
+        console.log(` in mitAnhanger muldenNumber toggle OFF ${isNew} `);
         controlGroup.get('value')?.reset();
       }
     } else if (type === this.stuckgutType.transport) {
@@ -408,14 +335,14 @@ export class TruckRecordComponent implements OnInit {
       const isNew = this.Form.get('is_new')?.value;
 
       if (isNew) {
-        console.log(` transporterGrp toggle ON `);
+        console.log(` transporterGrp toggle ON ${isNew} `);
         controlGroup.get('value')?.reset();
       } else {
-        console.log(`transporterGrp toggle OFF `);
+        console.log(`transporterGrp toggle OFF ${isNew} `);
         controlGroup.get('value')?.reset();
       }
     } else {
-      console.log('no toggle value');
+      console.log(`no toggle value ${isNaN}`);
     }
   }
   addNewRecord(type: any) {
@@ -514,9 +441,9 @@ export class TruckRecordComponent implements OnInit {
       this.insertIDs(formData)
       localStorage.setItem('allUserData', JSON.stringify(formData));
       console.log("Form Data : ", this.Form.getRawValue());
-    } else {
+    }
+    else {
       console.log('form is invalid!');
     }
   }
-
 }
